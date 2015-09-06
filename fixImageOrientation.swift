@@ -1,4 +1,6 @@
-// Playground - noun: a place where people can play
+//
+//  fixImageOrientation.swift
+//
 
 import UIKit
 
