@@ -25,8 +25,6 @@ func fixImageOrientation(src:UIImage)->UIImage {
         break
     case UIImageOrientation.Up, UIImageOrientation.UpMirrored:
         break
-    default:
-        break
     }
     
     switch src.imageOrientation {
@@ -39,12 +37,9 @@ func fixImageOrientation(src:UIImage)->UIImage {
         CGAffineTransformScale(transform, -1, 1)
     case UIImageOrientation.Up, UIImageOrientation.Down, UIImageOrientation.Left, UIImageOrientation.Right:
         break
-    default:
-        break
     }
     
-    
-    var ctx:CGContextRef = CGBitmapContextCreate(nil, UInt(src.size.width), UInt(src.size.height), CGImageGetBitsPerComponent(src.CGImage), 0, CGImageGetColorSpace(src.CGImage), CGImageGetBitmapInfo(src.CGImage))
+    let ctx:CGContextRef = CGBitmapContextCreate(nil, Int(src.size.width), Int(src.size.height), CGImageGetBitsPerComponent(src.CGImage), 0, CGImageGetColorSpace(src.CGImage), CGImageAlphaInfo.PremultipliedLast.rawValue)!
     
     CGContextConcatCTM(ctx, transform)
     
@@ -57,8 +52,8 @@ func fixImageOrientation(src:UIImage)->UIImage {
         break
     }
     
-    let cgimg:CGImageRef = CGBitmapContextCreateImage(ctx)
-    var img:UIImage = UIImage(CGImage: cgimg)
+    let cgimg:CGImageRef = CGBitmapContextCreateImage(ctx)!
+    let img:UIImage = UIImage(CGImage: cgimg)
     
     return img
 }
